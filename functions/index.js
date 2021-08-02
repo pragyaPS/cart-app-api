@@ -11,15 +11,13 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
   const snapshot = await admin.firestore().collection("itemList").get();
-
   let itemList = [];
   snapshot.forEach((doc) => {
-    let id = doc.id;
     let data = doc.data();
 
-    itemList.push({ id, ...data });
+    itemList.push({ ...data });
   });
-
+  //let itemList = snapshot.map((doc) => doc.data());
   res.status(200).send(JSON.stringify(itemList));
 });
 
